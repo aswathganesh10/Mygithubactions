@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v2
+        uses: Mygithubactions/checkout@v2.1.1
 
       - name: Run Testdeploy
-        uses: github/Testdeploy@v3
+        uses: github/Testdeploy@v3.1.1
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
