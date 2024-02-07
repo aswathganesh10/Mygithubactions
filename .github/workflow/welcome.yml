@@ -1,0 +1,13 @@
+name: Welcome
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      -name: Display Welcome message
+       run:echo "Welcome to Github action workflow"
+  
