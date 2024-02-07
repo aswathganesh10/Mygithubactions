@@ -1,0 +1,12 @@
+name: Welcome
+
+on:
+  push:
+
+jobs: 
+  welcome:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display Welcome Message
+        run: echo "Welcome to Mygithub actions workflows" 
