@@ -12,8 +12,8 @@ jobs:
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.A_AWS_SECRET_ID }}
-          aws-secret-access-key: ${{ secrets.A_AWS_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.A_AWS_SECRET }}
+          aws-secret-access-key: ${{ secrets.A_AWS_ACCESS }}
           aws-region: us-east-1
       - name: copy files to S3 bucket
         run: |
