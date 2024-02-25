@@ -1,5 +1,4 @@
 name: Deploy to S3
-
 on:
   push:
     branches:
@@ -9,23 +8,57 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.M_AWS_SECRETKEY_ID }}
+          aws-secret-access-key: ${{ secrets.M_AWS_ACCESS_KEY }}
+          aws-region: us-east-2
+      
+      - name: create S3 Bucket with website configuration
+      - run: |
+          aws s3api create-bucket \
+            --bucket  meena-sw \
+            --region us-east-2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '16'
+           
+          aws s3api put-public-access-block \
+            --bucket meena-sw \
+            --Public-access-block-configuration “BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false”
 
-    - name: Set up AWS CLI
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.M_AWS_SECRETKEY_ID }}
-        aws-secret-access-key: ${{ secrets.M_AWS_ACCESS_KEY }}
-        aws-region: us-east-2
+          aws s3api put-bucket-website \
+            --bucket  meena-sw\
+            --website-configuration ‘{
+                "IndexDocument”: {
+                    “Suffix”: “index.html”
+                },
+                “ErrorDocument”: {
+                    “Key”: “error.html”
+                }
+            }'
 
-    - name: Sync to S3
-      run: |
-        aws s3 sync . s3://meena-sw --delete
+           aws s3api Put-bucket-policy \
+             --bucket  meena-sw \
+             --policy ‘{
+                 “Version”:  “2012-10-17”,
+                 “Statement”:  [
+                     {
+                         “Effect”: “Allow”,
+                         “Principal”: “*”,
+                         “Action”: “s3:GetObject”,
+                         “Resource”:  “arn:aws:s3:::meena-sw/*”
+                     }
+                 ]
+              }’
+              
+      - name: Display Website URL
+        run: |
+         echo “Your website is hosted at http://meena-sw.s3-website.us-east-2.amazonaws.com
+
+      - name: Deploy static site to s3 bucket
+        run: |
+         aws s3 sync ./public/ s3://meena-sw --delete
