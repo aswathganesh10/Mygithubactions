@@ -23,4 +23,4 @@ jobs:
 
     - name: Sync to S3
       run: |
-        aws s3 sync http://meena-sw.s3-website.us-east-2.amazonaws.com s3://meena-sw --delete
+        aws s3 sync . s3://meena-sw --delete
