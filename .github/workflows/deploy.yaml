@@ -34,7 +34,7 @@ jobs:
             --bucket  meena-sw\
             --website-configuration ‘{
                 "IndexDocument”: {
-                    “Suffix”: “index.html”
+                    “Suffix”: “staticweb.html”
                 },
                 “ErrorDocument”: {
                     “Key”: “error.html”
