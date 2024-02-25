@@ -1,0 +1,26 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.M_AWS_SECRETKEY_ID  }}
+        aws-secret-access-key: ${{ secrets.M_AWS_ACCESS_KEY }}
+        aws-region: us-east-2
+
+    - name: Sync to S3
+      run: |
+        aws s3 sync http://meena-sw.s3-website.us-east-2.amazonaws.com s3://meena-sw --delete
