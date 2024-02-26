@@ -41,20 +41,7 @@ jobs:
                 }
             }'
 
-           aws s3api Put-bucket-policy \
-             --bucket  mega418 \
-             --policy ‘{
-                 “Version”:  “2012-10-17”,
-                 “Statement”:  [
-                     {
-                         “Effect”: “Allow”,
-                         “Principal”: “*”,
-                         “Action”: “s3:GetObject”,
-                         “Resource”:  “arn:aws:s3:::mega418”
-                     }
-                 ]
-              }’
-              
+                        
       - name: Display Website URL
         run: |
          echo “Your website is hosted at http://mega418.s3-website.us-east-1.amazonaws.com
