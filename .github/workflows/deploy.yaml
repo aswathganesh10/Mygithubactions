@@ -57,7 +57,7 @@ jobs:
               
       - name: Display Website URL
         run: |
-         echo “Your website is hosted at http://mega418.s3-website.us-east-2.amazonaws.com
+         echo “Your website is hosted at http://mega418.s3-website.us-east-1.amazonaws.com
       - name: Deploy static site to s3 bucket
         run: |
          aws s3 sync ./public/ s3://mega418 --delete
