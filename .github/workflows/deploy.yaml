@@ -1,50 +1,22 @@
-name: Deploy to S3
+name: deploy static website to AWS-S3
+
 on:
   push:
-    branches:
-      - main
-      - dev
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Configure AWS Credentials
+
+      - name: Set up AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.M_AWS_ACCESS_ID }}
           aws-secret-access-key: ${{ secrets.M_AWS_SECRETACCESS_KEY }}
           aws-region: us-east-1
-      
-      - name: create S3 Bucket with website configuration
-        run: |
-          aws s3api create-bucket \
-            --bucket  mega418 \
-            --region us-east-1
 
-           
-          aws s3api put-public-access-block \
-            --bucket mega418 \
-            --Public-access-block-configuration “BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false”
-
-          aws s3api put-bucket-website \
-            --bucket  mega418 \
-            --website-configuration ‘{
-                "IndexDocument”: {
-                    “Suffix”: “staticweb.html”
-                },
-                “ErrorDocument”: {
-                    “Key”: “error.html”
-                }
-            }'
-
-                        
-      - name: Display Website URL
+      - name: Deploy to AWS S3
         run: |
-         echo “Your website is hosted at http://mega418.s3-website.us-east-1.amazonaws.com
-      - name: Deploy static site to s3 bucket
-        run: |
-         aws s3 sync ./public/ s3://mega418 --delete
+          aws s3 sync . s3://mega418 --delete
