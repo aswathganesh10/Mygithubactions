@@ -22,16 +22,16 @@ jobs:
       - name: create S3 Bucket with website configuration
         run: |
           aws s3api create-bucket \
-            --bucket  meena-sw \
+            --bucket  mega418 \
             --region us-east-1
 
            
           aws s3api put-public-access-block \
-            --bucket meena-sw \
+            --bucket mega418 \
             --Public-access-block-configuration “BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false”
 
           aws s3api put-bucket-website \
-            --bucket  meena-sw\
+            --bucket  mega418 \
             --website-configuration ‘{
                 "IndexDocument”: {
                     “Suffix”: “staticweb.html”
@@ -50,15 +50,14 @@ jobs:
                          “Effect”: “Allow”,
                          “Principal”: “*”,
                          “Action”: “s3:GetObject”,
-                         “Resource”:  “arn:aws:s3:::meena-sw”
+                         “Resource”:  “arn:aws:s3:::mega418”
                      }
                  ]
               }’
               
       - name: Display Website URL
         run: |
-         echo “Your website is hosted at http://meena-sw.s3-website.us-east-2.amazonaws.com
-
+         echo “Your website is hosted at http://mega418.s3-website.us-east-2.amazonaws.com
       - name: Deploy static site to s3 bucket
         run: |
-         aws s3 sync ./public/ s3://meena-sw --delete
+         aws s3 sync ./public/ s3://mega418 --delete
