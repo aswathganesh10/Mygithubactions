@@ -42,7 +42,7 @@ jobs:
             }'
 
            aws s3api Put-bucket-policy \
-             --bucket  meena-sw \
+             --bucket  mega418 \
              --policy ‘{
                  “Version”:  “2012-10-17”,
                  “Statement”:  [
