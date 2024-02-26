@@ -20,7 +20,7 @@ jobs:
           aws-region: us-east-2
       
       - name: create S3 Bucket with website configuration
-      - run: |
+        run: |
           aws s3api create-bucket \
             --bucket  meena-sw \
             --region us-east-2
