@@ -9,4 +9,4 @@ jobs:
 
     steps:
       - name: Display Welcome Message
-        run: echo "Welcome to Mygithub actions workflows" 
+        run: echo "Welcome to self-hosted runner workflows"
