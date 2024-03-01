@@ -8,5 +8,5 @@ jobs:
     runs-on: Self-hosted
 
     steps:
-      - name: Display Welcome Message
+      - name: Welcome
         run: echo "Welcome to self-hosted runner workflows"
