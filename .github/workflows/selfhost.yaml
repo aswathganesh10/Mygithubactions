@@ -1,0 +1,12 @@
+name: Welcome
+
+on:
+  push:
+
+jobs: 
+  welcome:
+    runs-on: Self-hosted
+
+    steps:
+      - name: Welcome
+        run: echo "Welcome to self-hosted runner workflows"
